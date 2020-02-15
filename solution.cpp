@@ -1,6 +1,6 @@
 #include <iostream>
 
-void bit_sequence(const uint32_t bit_count, const uint64_t num) {
+void bit_sequence(const uint8_t bit_count, const uint64_t num) {
   if (bit_count == 0) {
     std::cout << '\n';
     return;
@@ -10,8 +10,8 @@ void bit_sequence(const uint32_t bit_count, const uint64_t num) {
 }
 
 int main() {
-  const uint32_t bit_count { 4 };
-  const uint64_t total_values { 1 << bit_count };
+  const uint8_t bit_count { 4 };
+  const uint64_t total_values { static_cast<uint64_t>(1) << bit_count };
   for (uint64_t num = 0; num < total_values; ++num)
     bit_sequence(bit_count, num ^ (num >> 1));
   return 0;
