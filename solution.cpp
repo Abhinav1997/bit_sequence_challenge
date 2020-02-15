@@ -1,26 +1,18 @@
 #include <iostream>
-#include <string>
 
-enum class Direction {
-  kForward,
-  kReverse
-};
-
-void BitSequence(int bit_count, Direction direction = Direction::kForward, std::string bit_string = "") {
+void bit_sequence(const uint8_t bit_count, const uint64_t num) {
   if (bit_count == 0) {
-    std::cout << bit_string << '\n';
+    std::cout << '\n';
     return;
   }
-  if (direction == Direction::kForward) {
-    BitSequence(bit_count - 1, Direction::kForward, bit_string + "0");
-    BitSequence(bit_count - 1, Direction::kReverse, bit_string + "1");
-  } else if (direction == Direction::kReverse) {
-    BitSequence(bit_count - 1, Direction::kForward, bit_string + "1");
-    BitSequence(bit_count - 1, Direction::kReverse, bit_string + "0");
-  }
+  bit_sequence(bit_count - 1, num >> 1);
+  std::cout << ((num & 1) ? '1' : '0');
 }
 
 int main() {
-  BitSequence(4);
+  const uint8_t bit_count { 4 };
+  const uint64_t total_values { 1 << bit_count };
+  for (uint64_t num = 0; num < total_values; ++num)
+    bit_sequence(bit_count, num ^ (num >> 1));
   return 0;
 }
